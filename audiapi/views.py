@@ -25,10 +25,13 @@ def get_car_model_list(request):
 class AudiAPIView(APIView):
 
     def get(self, request):
-        lst = Cars.objects.all().values()
-        return Response({'posts': lst})
+        lst = Cars.objects.all()
+        return Response({'posts': AudiSerializer(lst, many=True).data})
     
     def post(self, request):
+        serializer = AudiSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
         auto_new = Cars.objects.create(
             name_id = request.data['name_id'],
             generation_id = request.data['generation_id'],
