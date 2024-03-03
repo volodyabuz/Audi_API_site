@@ -15,7 +15,7 @@ class Cars(models.Model):
     gearbox = models.ForeignKey('Gearboxes', on_delete=models.CASCADE, verbose_name='Коробка передач')
     wheel_drive = models.ForeignKey('WheelDrives', on_delete=models.CASCADE, verbose_name='Привод')
     about = models.TextField(blank=True, verbose_name='Об автомобиле')
-    car_photo = models.ImageField(upload_to="car_photos/%Y/%m/%d/", verbose_name='Фото автомобиля')
+    car_photo = models.ImageField(blank=True, upload_to="car_photos/%Y/%m/%d/", verbose_name='Фото автомобиля')
 
     def __str__(self):
         return f'{self.name}, {self.generation}'
@@ -23,6 +23,7 @@ class Cars(models.Model):
     class Meta:
         verbose_name = 'автомобиль'
         verbose_name_plural = 'Автомобили'
+        ordering = ['id',]
 
 
 class CarModels(models.Model):
