@@ -31,16 +31,33 @@ class AudiAPIView(APIView):
     def post(self, request):
         serializer = AudiSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+        serializer.save()
 
-        auto_new = Cars.objects.create(
-            name_id = request.data['name_id'],
-            generation_id = request.data['generation_id'],
-            body_type_id = request.data['body_type_id'],
-            fuel_type_id = request.data['fuel_type_id'],
-            motor_id = request.data['motor_id'],
-            gearbox_id = request.data['gearbox_id'],
-            wheel_drive_id = request.data['wheel_drive_id'],
-            car_photo = 0
-        )
+        return Response({'new_car': serializer.data})
 
-        return Response({'new_car': model_to_dict(auto_new)})
+    def put(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', None)
+        if not pk:
+            return Response({'error': 'Method PUT is not allowed'})
+        
+        try:
+            instance = Cars.objects.get(pk=pk)
+        except:
+            return Response({'error': 'Object does not exist'})
+
+        serializer = AudiSerializer(data=request.data, instance=instance)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'changed_car': serializer.data})
+    
+    def delete(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        if not pk:
+            return Response({'error': 'Method DELETE is not allowed'})
+        
+        try:
+            temp = Cars.objects.get(pk=pk)
+        except:
+            return Response({'error': 'Object does not exist'})
+        temp.delete()
+        return Response({'deleted_item': AudiSerializer(temp).data})
