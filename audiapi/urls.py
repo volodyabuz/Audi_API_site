@@ -4,8 +4,9 @@ from .views import *
 from rest_framework import routers
 
 
-router = routers.SimpleRouter()
+router = routers.DefaultRouter()
 router.register(r'audi', AudiViewSet)
+print(router.urls)
 
 urlpatterns = [
     path('', get_car_model_list, name='home'),

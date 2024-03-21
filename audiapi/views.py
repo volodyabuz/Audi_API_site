@@ -5,6 +5,7 @@ from rest_framework import generics
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import viewsets
+from rest_framework.decorators import action
 
 from .forms import CarForm
 
@@ -22,6 +23,17 @@ def get_car_model_list(request):
 class AudiViewSet(viewsets.ModelViewSet):
     queryset = Cars.objects.all()
     serializer_class = AudiSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs.get('pk')
+        if not pk:
+            return Cars.objects.all()[:3]
+        return Cars.objects.filter(pk=pk) #Из-за того, что queryset получает СПИСОК, то метод FILTER, а не GET
+
+    @action(methods=['get'], detail=True)
+    def bodytype(self, request, pk=None):
+        body = BodyTypes.objects.get(pk=pk)
+        return Response({'bodies': body.body})
 
 
 # class AudiAPIList(generics.ListCreateAPIView):
