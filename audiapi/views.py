@@ -22,11 +22,24 @@ def get_car_model_list(request):
 #     serializer_class = AudiSerializer
 
 
+class AudiApiList(generics.ListCreateAPIView):
+    queryset = Cars.objects.all()
+    serializer_class = AudiSerializer
+
+
 class AudiAPIView(APIView):
 
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
+        pk = kwargs.get('pk', None)
+        if pk:
+            try:
+                instance = Cars.objects.get(pk=pk)
+                return Response({'posts': AudiSerializer(instance).data})
+            except:
+                return Response({'error': 'Object does not exist'})
         lst = Cars.objects.all()
         return Response({'posts': AudiSerializer(lst, many=True).data})
+
     
     def post(self, request):
         serializer = AudiSerializer(data=request.data)

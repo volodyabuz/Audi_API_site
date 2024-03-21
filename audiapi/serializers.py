@@ -14,34 +14,11 @@ from .models import Cars
 
 
 
-class AudiSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
-    name_id = serializers.IntegerField()
-    generation_id = serializers.IntegerField()
-    body_type_id = serializers.IntegerField()
-    fuel_type_id = serializers.IntegerField()
-    motor_id = serializers.IntegerField()
-    gearbox_id = serializers.IntegerField()
-    wheel_drive_id = serializers.IntegerField()
-    about = serializers.CharField(read_only=True)
-    car_photo = serializers.ImageField(read_only=True)
-
-    def create(self, validated_data):
-        return Cars.objects.create(**validated_data)
-    
-    def update(self, instance, validated_data):
-        id = serializers.IntegerField()
-        instance.name_id = validated_data.get('name_id', instance.name_id)
-        instance.generation_id = validated_data.get('generation_id', instance.generation_id)
-        instance.body_type_id = validated_data.get('body_type_id', instance.body_type_id)
-        instance.fuel_type_id = validated_data.get('fuel_type_id', instance.fuel_type_id)
-        instance.motor_id = validated_data.get('motor_id', instance.motor_id)
-        instance.gearbox_id = validated_data.get('gearbox_id', instance.gearbox_id)
-        instance.wheel_drive_id = validated_data.get('wheel_drive_id', instance.wheel_drive_id)
-        instance.about = validated_data.get('about', instance.about)
-        instance.car_photo = validated_data.get('car_photo', instance.car_photo)
-        instance.save()
-        return instance
+class AudiSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Cars
+        # fields = ('name', 'generation')
+        fields = "__all__"
 
 
 # def encode():
