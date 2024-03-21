@@ -22,55 +22,64 @@ def get_car_model_list(request):
 #     serializer_class = AudiSerializer
 
 
-class AudiApiList(generics.ListCreateAPIView):
+class AudiAPIList(generics.ListCreateAPIView):
     queryset = Cars.objects.all()
     serializer_class = AudiSerializer
 
 
-class AudiAPIView(APIView):
+class AudiAPIUpdate(generics.UpdateAPIView):
+    queryset = Cars.objects.all()
+    serializer_class = AudiSerializer
 
-    def get(self, request, *args, **kwargs):
-        pk = kwargs.get('pk', None)
-        if pk:
-            try:
-                instance = Cars.objects.get(pk=pk)
-                return Response({'posts': AudiSerializer(instance).data})
-            except:
-                return Response({'error': 'Object does not exist'})
-        lst = Cars.objects.all()
-        return Response({'posts': AudiSerializer(lst, many=True).data})
+
+class AudiAPIDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Cars.objects.all()
+    serializer_class = AudiSerializer
+
+# class AudiAPIView(APIView):
+
+#     def get(self, request, *args, **kwargs):
+#         pk = kwargs.get('pk', None)
+#         if pk:
+#             try:
+#                 instance = Cars.objects.get(pk=pk)
+#                 return Response({'posts': AudiSerializer(instance).data})
+#             except:
+#                 return Response({'error': 'Object does not exist'})
+#         lst = Cars.objects.all()
+#         return Response({'posts': AudiSerializer(lst, many=True).data})
 
     
-    def post(self, request):
-        serializer = AudiSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+#     def post(self, request):
+#         serializer = AudiSerializer(data=request.data)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
 
-        return Response({'new_car': serializer.data})
+#         return Response({'new_car': serializer.data})
 
-    def put(self, request, *args, **kwargs):
-        pk = kwargs.get('pk', None)
-        if not pk:
-            return Response({'error': 'Method PUT is not allowed'})
+#     def put(self, request, *args, **kwargs):
+#         pk = kwargs.get('pk', None)
+#         if not pk:
+#             return Response({'error': 'Method PUT is not allowed'})
         
-        try:
-            instance = Cars.objects.get(pk=pk)
-        except:
-            return Response({'error': 'Object does not exist'})
+#         try:
+#             instance = Cars.objects.get(pk=pk)
+#         except:
+#             return Response({'error': 'Object does not exist'})
 
-        serializer = AudiSerializer(data=request.data, instance=instance)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        return Response({'changed_car': serializer.data})
+#         serializer = AudiSerializer(data=request.data, instance=instance)
+#         serializer.is_valid(raise_exception=True)
+#         serializer.save()
+#         return Response({'changed_car': serializer.data})
     
-    def delete(self, request, *args, **kwargs):
-        pk = kwargs.get('pk')
-        if not pk:
-            return Response({'error': 'Method DELETE is not allowed'})
+#     def delete(self, request, *args, **kwargs):
+#         pk = kwargs.get('pk')
+#         if not pk:
+#             return Response({'error': 'Method DELETE is not allowed'})
         
-        try:
-            temp = Cars.objects.get(pk=pk)
-        except:
-            return Response({'error': 'Object does not exist'})
-        temp.delete()
-        return Response({'deleted_item': AudiSerializer(temp).data})
+#         try:
+#             temp = Cars.objects.get(pk=pk)
+#         except:
+#             return Response({'error': 'Object does not exist'})
+#         temp.delete()
+#         return Response({'deleted_item': AudiSerializer(temp).data})
