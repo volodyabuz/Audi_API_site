@@ -11,7 +11,9 @@ print(router.urls)
 urlpatterns = [
     path('', get_car_model_list, name='home'),
     path('api/v1/', include(router.urls)),
-    # path('get-model-car-list/<int:car_id>/', AudiAPIList.as_view(), name='get-model-car-list'),
+    path('api/v1/usergarage/', UserGarageAPIList.as_view()),
+    path('api/v1/usergarage/<int:pk>/', UserGarageAPIChange.as_view()),
+    path('get-model-car-list/<int:pk>/', AudiViewSet.as_view({'get': 'retrieve'}), name='get-model-car-list'),
     # path('api/v1/audilist/', AudiViewSet.as_view({'get': 'list'})),
     # path('api/v1/audilist/<int:pk>/', AudiViewSet.as_view({'get': 'retrieve', 'put': 'update'})),
 ]

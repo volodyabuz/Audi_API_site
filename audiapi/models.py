@@ -163,6 +163,9 @@ class Garage(models.Model):
     class Meta:
         verbose_name = 'Гараж'
         verbose_name_plural = 'Гараж'
+    
+    def __str__(self) -> str:
+        return f'{self.user}; {self.my_car}'
 
 
 class Recommendations(models.Model):
