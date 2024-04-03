@@ -7,6 +7,7 @@ from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework import permissions
+from rest_framework.authentication import TokenAuthentication
 
 from .forms import CarForm
 
@@ -24,7 +25,7 @@ def get_car_model_list(request):
 class AudiViewSet(viewsets.ModelViewSet):
     queryset = Cars.objects.all()
     serializer_class = AudiSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticated, )
 
     def get_queryset(self):
         pk = self.kwargs.get('pk')
@@ -56,6 +57,7 @@ class UserGarageAPIList(generics.ListCreateAPIView):
     queryset = Garage.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    authentication_classes = (TokenAuthentication, )
 
     def list(self, request):
         if request.user.is_authenticated:
