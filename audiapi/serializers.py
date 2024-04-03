@@ -9,7 +9,7 @@ class AudiSerializer(serializers.ModelSerializer):
     class Meta:
         model = Cars
         # fields = ('name', 'generation')
-        fields = ('generation',)
+        fields = "__all__"
 
 
 class UserSerializer(serializers.ModelSerializer):

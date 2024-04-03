@@ -11,6 +11,7 @@ print(router.urls)
 urlpatterns = [
     path('', get_car_model_list, name='home'),
     path('api/v1/', include(router.urls)),
+    path('api/v1/drf-auth/', include('rest_framework.urls')),
     path('api/v1/usergarage/', UserGarageAPIList.as_view()),
     path('api/v1/usergarage/<int:pk>/', UserGarageAPIChange.as_view()),
     path('get-model-car-list/<int:pk>/', AudiViewSet.as_view({'get': 'retrieve'}), name='get-model-car-list'),

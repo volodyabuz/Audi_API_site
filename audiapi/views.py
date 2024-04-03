@@ -24,6 +24,7 @@ def get_car_model_list(request):
 class AudiViewSet(viewsets.ModelViewSet):
     queryset = Cars.objects.all()
     serializer_class = AudiSerializer
+    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
 
     def get_queryset(self):
         pk = self.kwargs.get('pk')
