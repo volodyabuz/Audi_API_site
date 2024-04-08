@@ -8,6 +8,7 @@ from rest_framework import viewsets
 from rest_framework.decorators import action
 from rest_framework import permissions
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.pagination import PageNumberPagination
 
 from .forms import CarForm
 
@@ -22,15 +23,22 @@ def get_car_model_list(request):
     return render(request, 'audiapi/index.html', context=context)
 
 
+class AudiAPIListPagination(PageNumberPagination):
+    page_size = 3
+    page_size_query_param = 'page_size' #для ввода в параметры запорса &page_size=4 и изменения пагинации http://127.0.0.1:8000/api/v1/audi/?page=2&page_size=4
+    max_page_size = 10000 #но не более данного значения
+
+
 class AudiViewSet(viewsets.ModelViewSet):
     queryset = Cars.objects.all()
     serializer_class = AudiSerializer
     permission_classes = (permissions.IsAuthenticated, )
+    pagination_class = AudiAPIListPagination
 
     def get_queryset(self):
         pk = self.kwargs.get('pk')
         if not pk:
-            return Cars.objects.all()[:3]
+            return Cars.objects.all()
         return Cars.objects.filter(pk=pk) #Из-за того, что queryset получает СПИСОК, то метод FILTER, а не GET
 
     @action(methods=['get'], detail=True)
