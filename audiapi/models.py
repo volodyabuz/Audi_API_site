@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 #Классы об автомобилях
@@ -168,6 +169,7 @@ class Garage(models.Model):
         return f'{self.user}; {self.my_car}'
 
 
+
 class Recommendations(models.Model):
     '''Рекомендации объявлений для пользователя.'''
 
@@ -187,7 +189,7 @@ class Comments(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     car = models.ForeignKey('Cars', on_delete=models.CASCADE)
     comment = models.TextField(blank=True, verbose_name='Комментарий')
-    user_photo = models.ImageField(upload_to="user_photos/%Y/%m/%d/", verbose_name='Фото от пользователя')
+    user_photo = models.ImageField(upload_to="user_photos/%Y/%m/%d/", verbose_name='Фото от пользователя', null=True, blank=True)
     time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время публикации')
     time_update = models.DateTimeField(auto_now=True, verbose_name='Время изменения')
 

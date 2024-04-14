@@ -18,3 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Garage
         fields = "__all__"
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comments
+        fields = "__all__"
