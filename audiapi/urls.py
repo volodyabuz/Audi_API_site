@@ -10,12 +10,12 @@ router_audi.register(r'audi', AudiViewSet)
 
 
 urlpatterns = [
-    path('api/v1/', include(router_audi.urls)),
-    path('api/v1/drf-auth/', include('rest_framework.urls')),
-    path('api/v1/usergarage/', UserGarageAPIList.as_view()),
-    path('api/v1/usergarage/<int:pk>/', UserGarageAPIChange.as_view()),
-    path('api/v1/commentlist/', CommentAPIList.as_view()),
-    path('api/v1/commentlist/<int:car_id>/', CommentAPIListByCar.as_view()),
+    path('', include(router_audi.urls)),
+    path('drf-auth/', include('rest_framework.urls')),
+    path('usergarage/', UserGarageAPIList.as_view()),
+    path('usergarage/<int:pk>/', UserGarageAPIChange.as_view()),
+    path('commentlist/', CommentAPIList.as_view()),
+    path('commentlist/<int:car_id>/', CommentAPIListByCar.as_view()),
     path('get-model-car-list/<int:user_id>/', AudiViewSet.as_view({'get': 'retrieve'}), name='get-model-car-list'),
     # path('api/v1/auth/', include('djoser.urls')),
     # re_path(r'^auth/', include('djoser.urls.authtoken')),

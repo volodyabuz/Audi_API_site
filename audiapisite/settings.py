@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'audiapi.apps.AudiapiConfig',
+    'webapp.apps.WebappConfig',
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',

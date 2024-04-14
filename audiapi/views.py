@@ -84,3 +84,4 @@ class CommentAPIListByCar(generics.ListCreateAPIView):
         if not car_id:
             return Comments.objects.all()
         return Comments.objects.filter(car_id=car_id)
+
