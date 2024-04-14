@@ -39,7 +39,7 @@
 				<div class="navbar-header">
 					<!-- Logo -->
 					<div class="navbar-brand">
-						<a class="logo" href="index.html">
+						<a class="logo" href="{% url 'home' %}">
 							<img src="{% static 'webapp/img/logo-alt.png' %}" alt="logo">
 						</a>
 					</div>
@@ -55,11 +55,9 @@
 				<!-- Navigation -->
 				<nav id="nav">
 					<ul class="main-menu nav navbar-nav navbar-right">
-						<li><a href="index.html">Главная</a></li>
-						<li><a href="#">О нас</a></li>
-						<li><a href="#">Каталог</a></li>
-						<li><a href="blog.html">Отзывы</a></li>
-						<li><a href="blog.html">Контакты</a></li>
+						{% for link, item in nav_item.items %}
+							<li><a href="{{link}}">{{item}}</a></li>
+						{% endfor %}
 						<li><a style="color: #FF6700" href="contact.html">Войти</a></li>
 					</ul>
 				</nav>

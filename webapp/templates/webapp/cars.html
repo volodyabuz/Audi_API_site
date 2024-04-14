@@ -1,0 +1,55 @@
+<!-- Courses -->
+<div id="courses" class="section">
+
+	<!-- container -->
+	<div class="container">
+
+		<!-- row -->
+		<div class="row">
+			<div class="section-header text-center">
+				<h2>Модели автомобилей</h2>
+				<p class="lead">Ознакомьтесь с модельным рядом и поколениями</p>
+			</div>
+		</div>
+		<!-- /row -->
+
+		<!-- courses -->
+		<div id="courses-wrapper">
+
+			<!-- row -->
+			<div class="row">
+
+				<!-- single course -->
+                {% for item in qset %}
+				<div class="col-md-3 col-sm-6 col-xs-6">
+					<div class="course">
+						<a href="#" class="course-img">
+							<img src="{{ item.car_photo|default_if_none:'#' }}" alt="{{item.name}}">
+							<i class="course-link-icon fa fa-link"></i>
+						</a>
+						<a class="course-title" href="#">{{item.name}}</a>
+						<div class="course-details">
+							<span class="course-category">{{item.body_type}}</span>
+						</div>
+					</div>
+				</div>
+                {% endfor %}
+				<!-- /single course -->
+
+			</div>
+			<!-- /row -->
+
+		</div>
+		<!-- /courses -->
+
+		<div class="row">
+			<div class="center-btn">
+				<a class="main-button icon-button" href="#">Все модели</a>
+			</div>
+		</div>
+
+	</div>
+	<!-- container -->
+
+</div>
+<!-- /Courses -->

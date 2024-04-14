@@ -6,6 +6,13 @@ from .models import *
 
 
 class AudiSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source='name.car_name')
+    generation = serializers.CharField(source='generation.gen')
+    body_type = serializers.CharField(source='body_type.body')
+    fuel_type = serializers.CharField(source='fuel_type.fuel')
+    motor = serializers.CharField(source='motor.engine')
+    gearbox = serializers.CharField(source='gearbox.gear')
+    wheel_drive = serializers.CharField(source='wheel_drive.wd')
     class Meta:
         model = Cars
         # fields = ('name', 'generation')

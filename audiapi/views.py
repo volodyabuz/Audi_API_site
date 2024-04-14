@@ -16,7 +16,7 @@ from .permissions import *
 
 
 class AudiAPIListPagination(PageNumberPagination):
-    page_size = 3
+    page_size = 4
     page_size_query_param = 'page_size' #для ввода в параметры запорса &page_size=4 и изменения пагинации http://127.0.0.1:8000/api/v1/audi/?page=2&page_size=4
     max_page_size = 10000 #но не более данного значения
 
