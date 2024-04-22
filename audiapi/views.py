@@ -27,7 +27,12 @@ class AudiViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAdminOrReadOnly, )
     pagination_class = AudiAPIListPagination
 
+
     def get_queryset(self):
+        distinct = self.request.query_params.get('distinct') #Поиск уникальных значений
+        if distinct is not None:
+            return Cars.objects.order_by().distinct(distinct)
+
         pk = self.kwargs.get('pk')
         if not pk:
             return Cars.objects.all()

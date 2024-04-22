@@ -16,3 +16,17 @@ def somecars():
     return {
         'qset': qsetq,
     }
+
+
+@register.simple_tag(name='distincts')
+def distinct_values(filter=None):
+    if not filter:
+        q = requests.get(f'http://{ALLOWED_HOSTS[0]}:8000/api/v1/audi/')
+        json_response = q.json()
+        return json_response['results']
+    else:
+        print('AAAAAAAA')
+        q = requests.get(f'http://{ALLOWED_HOSTS[0]}:8000/api/v1/audi/?distinct={filter}')
+        json_response = q.json()
+        print(json_response['results'])
+        return json_response['results']

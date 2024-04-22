@@ -55,8 +55,8 @@
 				<!-- Navigation -->
 				<nav id="nav">
 					<ul class="main-menu nav navbar-nav navbar-right">
-						{% for link, item in nav_item.items %}
-							<li><a href="{{link}}">{{item}}</a></li>
+						{% for m in nav_item %}
+							<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
 						{% endfor %}
 						<li><a style="color: #FF6700" href="contact.html">Войти</a></li>
 					</ul>
@@ -92,8 +92,8 @@
 					<!-- footer nav -->
 					<div class="col-md-6">
 						<ul class="footer-nav">
-							{% for link, item in nav_item.items %}
-								<li><a href="{{link}}">{{item}}</a></li>
+							{% for m in nav_item %}
+								<li><a href="{% url m.url_name %}">{{m.title}}</a></li>
 							{% endfor %}
 						</ul>
 					</div>
@@ -108,12 +108,8 @@
 					<!-- social -->
 					<div class="col-md-4 col-md-push-8">
 						<ul class="footer-social">
-							<li><a href="#" class="facebook"><i class="fa fa-facebook"></i></a></li>
-							<li><a href="#" class="twitter"><i class="fa fa-twitter"></i></a></li>
-							<li><a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a></li>
-							<li><a href="#" class="instagram"><i class="fa fa-instagram"></i></a></li>
-							<li><a href="#" class="youtube"><i class="fa fa-youtube"></i></a></li>
-							<li><a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a></li>
+							<li><a href="https://vk.com/id462686534" class="vk" target="_blank"><i class="fa fa-vk"></i></a></li>
+							<li><a href="https://t.me/volodyabuz" class="telegram" target="_blank"><i class="fa fa-telegram"></i></a></li>
 						</ul>
 					</div>
 					<!-- /social -->
@@ -121,7 +117,7 @@
 					<!-- copyright -->
 					<div class="col-md-8 col-md-pull-4">
 						<div class="footer-copyright">
-							<span>&copy; Copyright 2018. All Rights Reserved. | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com">Colorlib</a></span>
+							<span>&copy; Владимир Бузмаков. | Дизайн - <a href="https://colorlib.com">Colorlib</a></span>
 						</div>
 					</div>
 					<!-- /copyright -->

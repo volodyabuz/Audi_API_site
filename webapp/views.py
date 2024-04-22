@@ -1,17 +1,18 @@
 from typing import Any, Dict
 from django.db.models.query import QuerySet
+from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView
 import requests
 from audiapi.models import *
 from audiapisite.settings import ALLOWED_HOSTS
 
-nav_item = {
-    '': 'Главная',
-    'catalog': 'Каталог',
-    'review': 'Отзывы',
-    'contact': 'Контакты',
-}
+nav_item = [
+    {'title': 'Главная', 'url_name': 'home'},
+    {'title': 'Каталог', 'url_name': 'catalog'},
+    {'title': 'Отзывы', 'url_name': 'review'},
+    {'title': 'Контакты', 'url_name': 'contact'},
+]
 context = {
     'nav_item': nav_item,
 }
@@ -23,6 +24,9 @@ def index(request):
 def about(request):
     context['title'] = 'Контакты'
     return render(request, 'webapp/contact.html', context=context)
+
+def review(reqest):
+    return HttpResponse("Обратная связь")
 
 
 class Catalog(ListView):
