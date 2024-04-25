@@ -12,6 +12,7 @@ nav_item = [
     {'title': 'Каталог', 'url_name': 'catalog'},
     {'title': 'Отзывы', 'url_name': 'review'},
     {'title': 'Контакты', 'url_name': 'contact'},
+    {'title': 'API', 'url_name': 'api-root'},
 ]
 context = {
     'nav_item': nav_item,

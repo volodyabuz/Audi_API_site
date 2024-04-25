@@ -48,7 +48,7 @@ class Generations(models.Model):
     gen = models.CharField(max_length=50, verbose_name='Поколение')
 
     def __str__(self) -> str:
-        return 'self.gen'
+        return self.gen
 
     class Meta:
         verbose_name = 'поколение'
