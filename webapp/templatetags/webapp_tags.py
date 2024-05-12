@@ -14,7 +14,6 @@ def distinct_values(filter=None):
         json_response = q.json()
         return json_response['results']
     else:
-        print('AAAAAAAA')
         q = requests.get(f'http://{ALLOWED_HOSTS[0]}:8000/api/v1/audi/?distinct={filter}')
         json_response = q.json()
         print(json_response['results'])
