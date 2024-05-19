@@ -11,10 +11,7 @@ def fresh_six_ads(url):
     # Парсим "плитку" объявлений на странице
     ad_items = soup.find_all('a', class_="css-4zflqt e1huvdhj1", limit=6)
 
-    result = {
-        "results": []
-    }
-
+    result = []
     for ad in ad_items:
         temp_dict = dict() # Временный словарь для данных
 
@@ -34,10 +31,17 @@ def fresh_six_ads(url):
         temp_dict["link"] = ad.attrs['href']
 
         # Получаем URL-фото из объявления
-        url_photo = ad.find('img', class_ = "css-9w7beg evrha4s0").attrs["src"]
+        try:
+            url_photo = ad.find('img', class_ = "css-9w7beg evrha4s0").attrs["src"]
+        except AttributeError:
+            url_photo = None
         temp_dict["url_photo"] = url_photo
 
-        result["results"].append(temp_dict)
+        # Получаем дату размещения из объявления
+        date = ad.find('div', attrs={"data-ftid": "bull_date"}).text.strip()
+        temp_dict["shared_time"] = date
+
+        result.append(temp_dict)
 
     return result
 

@@ -30,3 +30,8 @@ class CommentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Comments
         fields = "__all__"
+
+class RecommendationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Recommendations
+        fields = "__all__"

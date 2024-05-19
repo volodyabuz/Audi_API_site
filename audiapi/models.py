@@ -46,7 +46,7 @@ class Generations(models.Model):
 
     model_name = models.ForeignKey('CarModels', on_delete=models.CASCADE, verbose_name='Модель')
     gen = models.CharField(max_length=50, verbose_name='Поколение')
-    # drom_gen = models.CharField(max_length=50, blank=True, verbose_name='Поколение для Drom')
+    drom_gen = models.CharField(max_length=50, blank=True, verbose_name='Поколение для Drom')
 
     def __str__(self) -> str:
         return self.gen
@@ -176,8 +176,8 @@ class Recommendations(models.Model):
 
     car = models.ForeignKey('Cars', on_delete=models.CASCADE)
     url = models.TextField(blank=True, verbose_name='Объявление')
-    url_photo = models.ImageField(upload_to="url_photos/%Y/%m/%d/", verbose_name='Фото объявления')
-    shared_time = models.DateTimeField(auto_now=True, verbose_name='Время размещения')
+    url_photo = models.TextField(null=True, blank=True, verbose_name='Фото объявления')
+    shared_time = models.CharField(blank=True, verbose_name='Время размещения')
 
     class Meta:
         verbose_name = 'Рекомендации'

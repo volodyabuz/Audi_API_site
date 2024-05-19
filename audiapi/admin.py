@@ -15,7 +15,7 @@ class CarModelsAdmin(admin.ModelAdmin):
 admin.site.register(CarModels, CarModelsAdmin)
 
 class GenerationsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'model_name', 'gen')
+    list_display = ('id', 'model_name', 'gen', 'drom_gen')
 admin.site.register(Generations, GenerationsAdmin)
 
 class BodyTypesAdmin(admin.ModelAdmin):

@@ -16,7 +16,9 @@ urlpatterns = [
     path('usergarage/<int:pk>/', UserGarageAPIChange.as_view()),
     path('commentlist/', CommentAPIList.as_view()),
     path('commentlist/<int:car_id>/', CommentAPIListByCar.as_view()),
-    path('get-model-car-list/<int:user_id>/', AudiViewSet.as_view({'get': 'retrieve'}), name='get-model-car-list'),
+    path('recommendation/', RecommendationAPIList.as_view()),
+    path('recommendation/<int:pk>/', RecommendationAPIChange.as_view()),
+    # path('get-model-car-list/<int:user_id>/', AudiViewSet.as_view({'get': 'retrieve'}), name='get-model-car-list'),
     # path('api/v1/auth/', include('djoser.urls')),
     # re_path(r'^auth/', include('djoser.urls.authtoken')),
 

@@ -13,6 +13,7 @@ from rest_framework.pagination import PageNumberPagination
 from .models import *
 from .serializers import *
 from .permissions import *
+from .parser import *
 
 
 class AudiAPIListPagination(PageNumberPagination):
@@ -47,7 +48,7 @@ class AudiViewSet(viewsets.ModelViewSet):
 class UserGarageAPIList(generics.ListCreateAPIView):
     queryset = Garage.objects.all()
     serializer_class = UserSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly, )
+    permission_classes = (permissions.IsAuthenticated, )
     # authentication_classes = (TokenAuthentication, )
 
     def list(self, request):
@@ -59,6 +60,16 @@ class UserGarageAPIList(generics.ListCreateAPIView):
             queryset = Garage.objects.all()
         serializer = UserSerializer(queryset, many=True)
         return Response(serializer.data)
+    
+    def perform_create(self, serializer):
+        if self.request.method == "POST":
+            data_car = Cars.objects.get(pk=self.request.data["my_car"])
+            if len(self.request.data) > 2:
+                gen_drom = Generations.objects.values('drom_gen').get(gen=data_car.generation)
+                parsed_list = fresh_six_ads(f"https://auto.drom.ru/audi/{str(data_car.name).lower()}/{gen_drom['drom_gen']}/")
+
+                create_recommend_data(parsed_list, data_car.pk)
+
 
 
 class UserGarageAPIChange(generics.RetrieveUpdateDestroyAPIView):
@@ -90,3 +101,18 @@ class CommentAPIListByCar(generics.ListCreateAPIView):
             return Comments.objects.all()
         return Comments.objects.filter(car_id=car_id)
 
+
+class RecommendationAPIList(generics.ListAPIView):
+    queryset = Recommendations.objects.all()
+    serializer_class = RecommendationSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+class RecommendationAPIChange(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Recommendations.objects.all()
+    serializer_class = RecommendationSerializer
+    # permission_classes = (IsOwnerOrAdmin, )
+
+
+def create_recommend_data(data, c):
+    for car_info in data:
+        Recommendations.objects.create(car_id=c, url=car_info["link"], url_photo=car_info["url_photo"], shared_time=car_info["shared_time"])
