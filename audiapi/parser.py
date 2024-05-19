@@ -8,6 +8,7 @@ def fresh_six_ads(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
 
+    # Парсим "плитку" объявлений на странице
     ad_items = soup.find_all('a', class_="css-4zflqt e1huvdhj1", limit=6)
 
     result = {
@@ -31,6 +32,10 @@ def fresh_six_ads(url):
 
         # Получаем ссылку на объявление
         temp_dict["link"] = ad.attrs['href']
+
+        # Получаем URL-фото из объявления
+        url_photo = ad.find('img', class_ = "css-9w7beg evrha4s0").attrs["src"]
+        temp_dict["url_photo"] = url_photo
 
         result["results"].append(temp_dict)
 

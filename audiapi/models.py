@@ -46,6 +46,7 @@ class Generations(models.Model):
 
     model_name = models.ForeignKey('CarModels', on_delete=models.CASCADE, verbose_name='Модель')
     gen = models.CharField(max_length=50, verbose_name='Поколение')
+    # drom_gen = models.CharField(max_length=50, blank=True, verbose_name='Поколение для Drom')
 
     def __str__(self) -> str:
         return self.gen
