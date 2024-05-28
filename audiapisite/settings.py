@@ -87,7 +87,8 @@ DATABASES = {
         'NAME': 'audi_db',
         'USER': 'postgres',
         'PASSWORD': config('PASSWORD'),
-        'HOST': 'localhost',
+        # 'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
@@ -117,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'ru'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Moscow'
 
 USE_I18N = True
 

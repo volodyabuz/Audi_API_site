@@ -178,6 +178,7 @@ class Recommendations(models.Model):
     url = models.TextField(blank=True, verbose_name='Объявление')
     url_photo = models.TextField(null=True, blank=True, verbose_name='Фото объявления')
     shared_time = models.CharField(blank=True, verbose_name='Время размещения')
+    time_create = models.DateTimeField(auto_now_add=True, verbose_name='Время создания записи')
 
     class Meta:
         verbose_name = 'Рекомендации'

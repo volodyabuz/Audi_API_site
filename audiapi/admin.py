@@ -3,7 +3,11 @@ from .models import *
 
 
 admin.site.register(Garage)
-admin.site.register(Recommendations)
+
+class RecommendationsAdmin(admin.ModelAdmin):
+    list_display = ('id', 'car', 'url', 'url_photo', 'shared_time', 'time_create')
+admin.site.register(Recommendations, RecommendationsAdmin)
+
 admin.site.register(Comments)
 
 class CarsAdmin(admin.ModelAdmin):
