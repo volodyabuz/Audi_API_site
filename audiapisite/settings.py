@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1',]
+ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0']
 
 
 # Application definition
@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'djoser',
+    'django_dump_load_utf8',
 ]
 
 MIDDLEWARE = [
@@ -87,9 +88,9 @@ DATABASES = {
         'NAME': 'audi_db',
         'USER': 'postgres',
         'PASSWORD': config('PASSWORD'),
-        # 'HOST': 'localhost',
+        'HOST': 'localhost',
         'HOST': 'db',
-        'PORT': '5432',
+        # 'PORT': '5432',
     }
 }
 
