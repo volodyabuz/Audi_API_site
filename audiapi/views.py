@@ -9,11 +9,13 @@ from rest_framework.decorators import action
 from rest_framework import permissions
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.pagination import PageNumberPagination
+from django.contrib.auth.models import User
 
 from .models import *
 from .serializers import *
 from .permissions import *
 from .parser import *
+from .send_mail import send_email_func
 
 
 class AudiAPIListPagination(PageNumberPagination):
@@ -66,7 +68,8 @@ class UserGarageAPIList(generics.ListCreateAPIView):
             data_car = Cars.objects.get(pk=self.request.data["my_car"])
             if len(self.request.data) > 2:
                 gen_drom = Generations.objects.values('drom_gen').get(gen=data_car.generation)
-                parsed_list = fresh_six_ads(f"https://auto.drom.ru/audi/{str(data_car.name).lower()}/{gen_drom['drom_gen']}/")
+                body_drom = BodyTypes.objects.values('drom_body').get(body=data_car.body_type)
+                parsed_list = fresh_six_ads(f"https://auto.drom.ru/audi/{str(data_car.name).lower()}/{gen_drom['drom_gen']}/{body_drom['drom_body']}")
 
                 create_recommend_data(parsed_list, data_car.pk)
 
@@ -76,6 +79,18 @@ class UserGarageAPIChange(generics.RetrieveUpdateDestroyAPIView):
     queryset = Garage.objects.all()
     serializer_class = UserSerializer
     permission_classes = (IsOwnerOrAdmin, )
+
+    def perform_update(self, serializer):
+        if self.request.method == "PUT":
+            user_data = User.objects.get(username=self.request.user)
+            data_car = Cars.objects.get(pk=self.request.data["my_car"])
+            if len(self.request.data) > 1:
+                gen_drom = Generations.objects.values('drom_gen').get(gen=data_car.generation)
+                body_drom = BodyTypes.objects.values('drom_body').get(body=data_car.body_type)
+                parsed_list = fresh_six_ads(f"https://auto.drom.ru/audi/{str(data_car.name).lower()}/{gen_drom['drom_gen']}/{body_drom['drom_body']}")
+
+                create_recommend_data(parsed_list, data_car.pk)
+                send_email_func(parsed_list, f'Новые объявления Audi {str(data_car.name)} {data_car.generation} {data_car.body_type}', user_data.email)
     # authentication_classes = (TokenAuthentication, )
 
     # def filter_queryset(self, queryset):

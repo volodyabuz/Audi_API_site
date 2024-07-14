@@ -1,0 +1,7 @@
+{% for ad in data %}
+<ul>
+    {% for key, value in ad.items %}
+        <li><b>{{key}}</b>: <em>{{value}}</em></li>
+    {% endfor %}
+</ul>
+{% endfor %}

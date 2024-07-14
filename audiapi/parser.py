@@ -9,7 +9,7 @@ def fresh_six_ads(url):
     soup = BeautifulSoup(response.text, 'html.parser')
 
     # Парсим "плитку" объявлений на странице
-    ad_items = soup.find_all('a', class_="css-4zflqt e1huvdhj1", limit=6)
+    ad_items = soup.find_all('div', class_="css-1f68fiz ea1vuk60", limit=6)
 
     result = []
     for ad in ad_items:
@@ -17,9 +17,9 @@ def fresh_six_ads(url):
 
         # Получаем название объявления
         try:
-            title = ad.find('div', class_="css-16kqa8y e3f4v4l2").text.strip()
+            title = ad.find('h3', class_="css-16kqa8y efwtv890").text.strip()
         except AttributeError:
-            title = ad.find('div', class_="css-d4igzo e3f4v4l2").text.strip()
+            title = ad.find('h3', class_="css-d4igzo efwtv890").text.strip()
         finally:
             temp_dict['name'] = title
         
@@ -28,7 +28,9 @@ def fresh_six_ads(url):
         temp_dict["price"] = price
 
         # Получаем ссылку на объявление
-        temp_dict["link"] = ad.attrs['href']
+        link = ad.find('a', class_="g6gv8w4 g6gv8w8 _1ioeqy90").attrs['href']
+        # temp_dict["link"] = ad.attrs['href']
+        temp_dict["link"] = link
 
         # Получаем URL-фото из объявления
         try:
@@ -56,6 +58,7 @@ def avg_price(url):
         response = requests.get(url)
         soup = BeautifulSoup(response.text, 'html.parser')
         items = soup.find_all('div', class_="css-1dv8s3l eyvqki91")
+        # print(items)
         for i in items:
             price = int(i.find('span', attrs={"data-ftid": "bull_price"}).text.strip().replace("\xa0", ''))
             prices.append(price)

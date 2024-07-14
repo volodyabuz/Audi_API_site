@@ -23,7 +23,7 @@ class GenerationsAdmin(admin.ModelAdmin):
 admin.site.register(Generations, GenerationsAdmin)
 
 class BodyTypesAdmin(admin.ModelAdmin):
-    list_display = ('id', 'body')
+    list_display = ('id', 'body', 'drom_body')
 admin.site.register(BodyTypes, BodyTypesAdmin)
 
 class FuelTypesAdmin(admin.ModelAdmin):

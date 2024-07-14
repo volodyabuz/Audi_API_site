@@ -89,8 +89,8 @@ DATABASES = {
         'USER': 'postgres',
         'PASSWORD': config('PASSWORD'),
         'HOST': 'localhost',
-        'HOST': 'db',
-        # 'PORT': '5432',
+        # 'HOST': 'db',
+        'PORT': '5432',
     }
 }
 
@@ -197,3 +197,12 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_OBTAIN_SERIALIZER": "rest_framework_simplejwt.serializers.TokenObtainSlidingSerializer",
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')

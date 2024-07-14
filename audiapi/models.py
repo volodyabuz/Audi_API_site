@@ -59,17 +59,8 @@ class Generations(models.Model):
 class BodyTypes(models.Model):
     '''Типы кузова автомобиля.'''
 
-    # BODY_TYPE_CHOICES = [
-    #     ('HT3', 'Хэтчбек 3дв.'),
-    #     ('HT5', 'Хэтчбек 5дв.'),
-    #     ('SD4', 'Седан 4дв.'),
-    #     ('UV5', 'Универсал 5дв.'),
-    #     ('SV5', 'Внедорожник 5дв.'),
-    #     ('CU2', 'Купэ 2дв.'),
-    #     ('CB2', 'Кабриолет 2дв.'),
-    # ]
-
     body = models.CharField(max_length=20, verbose_name='Тип кузова')
+    drom_body = models.CharField(max_length=50, blank=True, verbose_name='Тип кузова для Drom')
 
     def __str__(self) -> str:
         return self.body
