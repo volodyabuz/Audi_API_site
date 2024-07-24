@@ -88,8 +88,8 @@ DATABASES = {
         'NAME': 'audi_db',
         'USER': 'postgres',
         'PASSWORD': config('PASSWORD'),
-        'HOST': 'localhost',
-        # 'HOST': 'db',
+        # 'HOST': 'localhost',
+        'HOST': 'db',
         'PORT': '5432',
     }
 }
@@ -206,3 +206,6 @@ EMAIL_USE_SSL = False
 EMAIL_PORT = 587
 EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+
+
+CELERY_BROKER_URL = 'redis://redis:6379'

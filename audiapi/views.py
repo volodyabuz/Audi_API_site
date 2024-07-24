@@ -16,6 +16,7 @@ from .serializers import *
 from .permissions import *
 from .parser import *
 from .send_mail import send_email_func
+from .tasks import *
 
 
 class AudiAPIListPagination(PageNumberPagination):
@@ -91,6 +92,7 @@ class UserGarageAPIChange(generics.RetrieveUpdateDestroyAPIView):
 
                 create_recommend_data(parsed_list, data_car.pk)
                 send_email_func(parsed_list, f'Новые объявления Audi {str(data_car.name)} {data_car.generation} {data_car.body_type}', user_data.email)
+                send_adds_to_user.delay()
     # authentication_classes = (TokenAuthentication, )
 
     # def filter_queryset(self, queryset):
